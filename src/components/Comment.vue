@@ -29,6 +29,7 @@ export default {
       comments: ''
     }
   },
+
   created: function () {
     axios
       .get('http://seungwook.shop/boards/'+this.board_id+'/comments',{

@@ -86,6 +86,17 @@ export default {
       fields: ['category', 'user.username', 'imgurl','title','createdAt','heartCount','region']
     }
   },
+  metaInfo: {
+    // meta tag 입력하기
+    meta: [
+      { charset: 'utf-8' },
+      // { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      // { vmid: "description", name: "description", content: 'description' },
+      { httpEquiv: "Content-Security-Policy", content:"upgrade-insecure-requests" }
+      //vmid ↑ 메타 태그를 고유하게 만들어준다.
+    ]
+  },
+
   created: function () {
     axios
       .get('http://seungwook.shop/boards', {

@@ -1,7 +1,6 @@
 
 <template>
   <div>
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <!--    헤더 컴포넌트-->
     <Header />
 <!--    점보트론 -->

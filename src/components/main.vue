@@ -6,7 +6,7 @@
 <!--    점보트론 -->
     <div>
       <b-jumbotron bg-variant="info" text-variant="white" border-variant="dark">
-        <template #header>리얼 뽐뿌</template>
+        <template #header>REAL 뽐뿌</template>
 
         <template #lead>
           리얼 뽐뿌는 동네별로 할인하고 있는 오프라인 상품들에 대한 정보들을 공유하는 웹 사이트 입니다.

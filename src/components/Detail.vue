@@ -11,9 +11,12 @@
 
             </tr>
             <tr>
+              <div id="map" style="width:100%;height:350px;"></div>
+            </tr>
+
+            <tr>
               <td>
                 <span>{{board.category}} </span>
-                <span>{{board.region}}</span>
                 <span v-if="board.user!=null">{{board.user.username}}</span>
               </td>
             </tr>
@@ -25,7 +28,7 @@
               <span>{{board.content}}</span> </tr>
             <tr>
 <!--              <b-nav-item to="login" v-if="isLogin()==null" >로그인</b-nav-item>-->
-              <button v-if="board.user.username==now_id" v-on:click="delete_board">글 삭제</button>
+              <button v-if="board.user && board.user.username==now_id" v-on:click="delete_board">글 삭제</button>
             </tr>
           </table>
         </b-col>
@@ -55,6 +58,17 @@ export default {
         now_id : ''
       }
   },
+  mounted() {
+    if (window.kakao && window.kakao.maps) {
+      this.initMap()
+    } else {
+      const script = document.createElement('script')
+      script.onload = () => kakao.maps.load(this.initMap);
+      script.src =
+        'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=08a002569760a207869b64feae1f4e89';
+      document.head.appendChild(script)
+    }
+  },
   computed: {
 
     param: function () {
@@ -71,7 +85,8 @@ export default {
       )
       .then((response) => {
         console.log(response.data)
-        this.board=response.data
+        this.board=response.data;
+        setCenter();
       })
       .catch((error) => {
         console.log(error)
@@ -82,6 +97,30 @@ export default {
 
   },
   methods: {
+    setCenter: function() {
+  // 이동할 위도 경도 위치를 생성합니다
+  var moveLatLon = new kakao.maps.LatLng(this.board.region_lat, this.board.region_lng);
+
+  // 지도 중심을 이동 시킵니다
+  map.setCenter(moveLatLon);
+
+  },
+
+    initMap: function() {
+      const container = document.querySelector('#map')
+      const options = {
+        center: new kakao.maps.LatLng(35.19656853772262, 129.0807270648317),
+        level: 3
+      }
+      const map = new kakao.maps.Map(container, options)
+      const markerPosition = new kakao.maps.LatLng(35.19656853772262, 129.0807270648317);
+
+      const marker = new kakao.maps.Marker({
+        position: markerPosition
+      });
+      marker.setMap(map)
+    },
+
     addHeart: function () {
       axios
         .post('http://seungwook.shop/boards/'+this.$route.params.id+'/heart',"",{

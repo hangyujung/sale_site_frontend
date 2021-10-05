@@ -51,6 +51,7 @@
 
         </b-col>
       </b-row>
+      <button @click="$router.push('/create')" type="button" class="btn btn-primary btn-lg">글쓰기</button>
     </b-container>
 
 
